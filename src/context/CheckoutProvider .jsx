@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { placeOrder } from '../utils/OrderComfromed';
 import { UseAuthContext } from './AuthProvider';
 import { UseProductContext } from './ProductProvider';
+import { API_URL } from '../App';
 
 const CheckoutContext = createContext();
 
@@ -62,7 +63,7 @@ const CheckoutProvider = ({ children }) => {
         try {
             setIsLoading(true);
 
-            const { data } = await axios.post('http://localhost:8080/api/payment/create-order', { amount });
+            const { data } = await axios.post(`${API_URL}/api/payment/create-order`, { amount });
 
             const options = {
                 key: RAZORPAY_KEY_ID,
@@ -72,7 +73,7 @@ const CheckoutProvider = ({ children }) => {
                 description: "Test Transaction",
                 order_id: data.id,
                 handler: async function (response) {
-                    const verifyRes = await axios.post('http://localhost:8080/api/payment/verify', {
+                    const verifyRes = await axios.post(`${API_URL}/api/payment/verify`, {
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
                         razorpay_signature: response.razorpay_signature,

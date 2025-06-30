@@ -7,9 +7,11 @@ import {
   FaTshirt,
   FaMobileAlt,
   FaCouch,
-  FaRunning
+  FaRunning,
+  FaSpinner
 } from "react-icons/fa";
 import { MdOutlineSentimentDissatisfied } from "react-icons/md";
+import { SpinLoader } from "../components/SpinLoader";
 
 // Lazy Loading Components for performance
 const ProductCard = lazy(() => import("../components/ProductCard"));
@@ -25,17 +27,7 @@ const categories = [
 const Products = ({ isHome = false, id }) => {
   const { products, filterByCategory, filteredProducts } = UseProductContext() || {};
 
-  // ⚠️ Agar filtered product empty hai, toh EmptyProducts show karo
-  if (filteredProducts.length === 0) {
-    return (
-      <div className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 min-h-screen text-gray-800">
-        {!isHome && <Navbar />}
-        <Suspense fallback={<p className="text-center py-10">Loading...</p>}>
-          <EmptyProducts />
-        </Suspense>
-      </div>
-    );
-  }
+
 
   return (
     <>
@@ -89,7 +81,7 @@ const Products = ({ isHome = false, id }) => {
                 <p className="text-sm">Try selecting another category or clear the filters.</p>
               </div>
             ) : (
-              <Suspense fallback={<p className="text-center">Loading products...</p>}>
+              <Suspense fallback={<SpinLoader/>}>
                 {filteredProducts.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}

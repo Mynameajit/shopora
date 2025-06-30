@@ -92,4 +92,6 @@ const App = () => {
   );
 };
 
+export const API_URL="https://shopora-backend-1g44.onrender.com"
+
 export default App;

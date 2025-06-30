@@ -23,6 +23,7 @@ const ShippingDetails = () => {
   // 📌 Dropdown data for states and cities
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // 🔁 On first load, fetch Indian states
   useEffect(() => {
@@ -47,8 +48,9 @@ const ShippingDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await axios.post(
-        "http://localhost:8080/api/address/add",
+        `${API_URL}/api/address/add`,
         form,
         {
           withCredentials: true,
@@ -59,6 +61,8 @@ const ShippingDetails = () => {
       );
 
       toast.success("Address created successfully!");
+      setLoading(false)
+
       // 🎯 Reset form after submission
       setForm({
         fullName: "",
@@ -75,6 +79,7 @@ const ShippingDetails = () => {
       // ✅ Redirect to order summary
       navigate("/order-summary");
     } catch (error) {
+      setLoading(false)
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to create address");
     }
@@ -163,8 +168,10 @@ const ShippingDetails = () => {
           <button
             type="submit"
             className="w-full py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition duration-200 font-semibold text-lg"
-          >
-            Continue to Payment
+          >{
+
+              loading ? "Adding...." : "Continue to Payment"
+            }
           </button>
         </form>
       </div>

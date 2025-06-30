@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
+import { API_URL } from "../App";
 
 const Contact = ({ isHome = false }) => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -18,7 +19,7 @@ const Contact = ({ isHome = false }) => {
     try {
       setLoading(true);
       await axios.post(
-        "http://localhost:8080/api/contact/create",
+      `${API_URL}/api/contact/create`,
         form,
         {
           withCredentials: true,

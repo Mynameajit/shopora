@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_URL } from "../App";
 
 // 🎯 Auth Context banaya gaya hai
 const Context = createContext();
@@ -23,7 +24,7 @@ const AuthProvider = ({ children }) => {
   const [role, setRole] = useState("");           // Role (User/Admin)
 
   // 🌍 API base config
-  const BASE_URL = "http://localhost:8080/api";
+  const BASE_URL = `${API_URL}/api`;
   axios.defaults.withCredentials = true;
 
   // ✅ User data laane wala function
@@ -56,7 +57,7 @@ const AuthProvider = ({ children }) => {
     } else {
       getUser(); // sirf ek baar call
     }
-  }, []); // Dependency khali rakhna important hai
+  }, [user,isAuth]); // Dependency khali rakhna important hai
 
   // 🔐 Login ka handler
   const handleLogin = async () => {

@@ -10,6 +10,9 @@ const OrderCard = ({ order, onCancel }) => {
     0
   );
 
+
+  console.log(order);
+  
   return (
     <div className="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition p-4 sm:p-6 space-y-4">
       {/* Top section */}

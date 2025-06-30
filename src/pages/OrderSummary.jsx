@@ -36,7 +36,7 @@ const OrderSummary = () => {
 
   const handleUpdateAddress = async () => {
     try {
-      await axios.put("http://localhost:8080/api/address/update", formData, {
+      await axios.put(`/api/address/update`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

@@ -8,6 +8,7 @@ import {
   FaCheckCircle,
   FaBoxOpen,
 } from 'react-icons/fa';
+import { API_URL } from '../App';
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:8080/api/order/details/${id}`);
+        const { data } = await axios.get(`${API_URL}/api/order/details/${id}`);
         setOrder(data);
       } catch (err) {
         console.error('Failed to fetch order', err);

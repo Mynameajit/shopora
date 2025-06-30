@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
+import { API_URL } from '../App';
 
-const RazorpayButton = ({ amount=500 }) => {
+const RazorpayButton = ({ amount = 500 }) => {
 
-   const RAZORPAY_KEY_ID=import.meta.env.VITE_RAZORPAY_KEY_ID
-   console.log(RAZORPAY_KEY_ID);
-   
-   
+  const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID
+  console.log(RAZORPAY_KEY_ID);
+
+
   const loadRazorpay = async () => {
     try {
-      const { data } = await axios.post('http://localhost:8080/api/payment/create-order', { amount });
+      const { data } = await axios.post(`${API_URL}/api/payment/create-order`, { amount });
 
       const options = {
         key: RAZORPAY_KEY_ID,
@@ -20,7 +21,7 @@ const RazorpayButton = ({ amount=500 }) => {
         order_id: data.id,
         handler: async function (response) {
           // Optional: verify on server
-          const verifyRes = await axios.post('http://localhost:8080/api/payment/verify', {
+          const verifyRes = await axios.post(`${API_URL}/api/payment/verify`, {
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
@@ -43,7 +44,7 @@ const RazorpayButton = ({ amount=500 }) => {
       };
 
       const rzp = new window.Razorpay(options); // ✅ Now it will work
-    rzp.open();
+      rzp.open();
 
     } catch (err) {
       console.error("Razorpay Error: ", err);

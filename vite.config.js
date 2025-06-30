@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080', // 👈 Your backend
+        target: 'https://shopora-backend-1g44.onrender.com/', // 👈 Your backend
         changeOrigin: true,
         secure: false,
       }

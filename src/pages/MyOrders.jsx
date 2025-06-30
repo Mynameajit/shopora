@@ -4,6 +4,8 @@ import { FaClipboardList } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { statusColor, trackingStage } from "../utils/orderUtils";
+import { SpinLoader } from "../components/SpinLoader";
+import { API_URL } from "../App";
 
 // Lazy load layout and order card
 const AppLayout = lazy(() => import("../layout/AppLayout"));
@@ -16,7 +18,7 @@ const MyOrders = () => {
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/api/order/my-order", {
+        const { data } = await axios.get(`${API_URL}/api/order/my-order`, {
           withCredentials: true,
         });
         setOrders(data.orders);
@@ -33,7 +35,7 @@ const MyOrders = () => {
     if (window.confirm("Are you sure you want to cancel your order?")) {
       try {
         await axios.post(
-          `http://localhost:8080/api/order/update/${_id}`,
+          `${API_URL}/api/order/update/${_id}`,
           { status: "Cancelled" },
           { withCredentials: true }
         );
@@ -53,7 +55,7 @@ const MyOrders = () => {
     filter === "All" ? orders : orders.filter((order) => order.status === filter);
 
   return (
-    <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
+    <Suspense fallback={<SpinLoader/>}>
       <AppLayout>
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6">
           <h1 className="text-3xl sm:text-4xl font-bold text-indigo-800 mb-4 text-center">

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { UseAuthContext } from "./AuthProvider";
 import axios from "axios";
+import { API_URL } from "../App";
 
 // Create context
 const Context = createContext();
@@ -39,7 +40,7 @@ const ProductProvider = ({ children }) => {
     // Get all products
     const getProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:8080/api/product/all');
+            const { data } = await axios.get(`${API_URL}/api/product/all`);
             setProducts(data.products);
         } catch (error) {
             console.error(error);
@@ -57,7 +58,7 @@ const ProductProvider = ({ children }) => {
     // Search handler
     const handleSearchProducts = async (keyword) => {
         try {
-            const { data } = await axios.get(`http://localhost:8080/api/product/search?search=${keyword}`);
+            const { data } = await axios.get(`${API_URL}/api/product/search?search=${keyword}`);
             setFilteredProducts(data.products);
         } catch (error) {
             console.error("Search error:", error);

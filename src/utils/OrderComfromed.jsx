@@ -12,7 +12,7 @@ export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmo
         }));
 
         const response = await axios.post(
-            'http://localhost:8080/api/order/create',
+            `${API_URL}/api/order/create`,
             {
                 address: addressId,
                 products,

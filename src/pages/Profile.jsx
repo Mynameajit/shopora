@@ -24,7 +24,7 @@ const Profile = () => {
   const deleteAddress = async (id) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/address/delete",
+        `${API_URL}/api/address/delete`,
         { _id: id },
         {
           withCredentials: true,

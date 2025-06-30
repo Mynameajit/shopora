@@ -1,5 +1,5 @@
 
-import login_Img from "../assets/loginimg.jpg";
+import login_Img from "../assets/loginImg.jpg";
 import loadingLogo from "../assets/loadingLogo.jpg";
 import slider1 from "../assets/slider1.jpg";
 import slider2 from "../assets/slider2.jpg";
