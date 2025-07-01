@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   // 🔐 User-related state
   const [user, setUser] = useState(null);         // User data
   const [isAuth, setIsAuth] = useState(false);    // Auth status
-  const [loading, setLoading] = useState(true);   // Global loader
+  const [loading, setLoading] = useState(false);   // Global loader
 
   // 📥 Input field state
   const [isLogin, setIsLogin] = useState(true);   // Login/Register toggle
@@ -33,19 +33,16 @@ const AuthProvider = ({ children }) => {
   const getUser = async () => {
 
     try {
-      setLoading(true);
-      const {data} = await axios.get(`${"http://localhost:8080"}/api/user/me`,{
-        withCredentials:true
+      const { data } = await axios.get(`${API_URL}/api/user/me`, {
+        withCredentials: true
       })
-     
+
       setUser(data.user || null);
       setIsAuth(data.success || false);
     } catch (err) {
       console.log("Error is : ", err)
       setUser(null);
       setIsAuth(false);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -68,7 +65,7 @@ const AuthProvider = ({ children }) => {
         }
       );
 
-    
+
 
       if (data.success) {
         console.log(data)
@@ -79,7 +76,7 @@ const AuthProvider = ({ children }) => {
         setEmail("");
         setPassword("");
         navigate("/");
-     
+
 
       } else {
         toast.error(data.message || "Login failed");
@@ -131,24 +128,27 @@ const AuthProvider = ({ children }) => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`${BASE_URL}/auth/logout`);
+      const { data } = await axios.post(`${BASE_URL}/auth/logout`, {}, {
+        withCredentials: true
+      });
 
       if (data.success) {
         setUser(null);
         setIsAuth(false);
-        localStorage.setItem("logout", "true"); // logout flag
-        toast.success(data.message || "Logged out successfully");
+        toast.success("Logged out successfully");
         navigate("/");
-        window.location.reload(); // UI ko fully reset kare
       } else {
-        toast.error(data.message || "Logout failed");
+        toast.error("Logout failed");
       }
-    } catch (error) {
-      console.log(error?.response?.data?.message || "Logout error");
+    } catch (err) {
+      console.error(err);
+      toast.error("Logout error");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   // 🔁 Global context value provide karo
   return (

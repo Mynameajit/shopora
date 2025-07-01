@@ -5,12 +5,8 @@ import toast from "react-hot-toast";
 import Loader from "../Loader";
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuth, loading, user } = UseAuthContext();
+    const { isAuth, user } = UseAuthContext();
     const location = useLocation();
-
-    if (loading) {
-        return <div ><Loader/></div>;
-    }
 
     if (!isAuth) {
         return <Navigate to="/signup" replace state={{ from: location }} />;

@@ -82,7 +82,7 @@ const Products = ({ isHome = false, id }) => {
               </div>
             ) : (
               <Suspense fallback={<SpinLoader/>}>
-                {filteredProducts.map((product, i) => (
+                {filteredProducts?.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
               </Suspense>

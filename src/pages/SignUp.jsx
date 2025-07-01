@@ -3,6 +3,8 @@ import { UseAuthContext } from "../context/AuthProvider";
 import InputField from "../components/InputField";
 import SelectField from "../components/SelectField";
 import { login_Img } from "../utils/imageData";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 // 🧾 Available Roles
 const roles = [
@@ -28,6 +30,15 @@ const SignUp = () => {
     handleRegister,
     loading,
   } = UseAuthContext() || {};
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/')
+    }
+  }, [isAuth])
+
 
   // 🔁 Update form values based on field name
   const handleChange = (e) => {
@@ -133,17 +144,16 @@ const SignUp = () => {
           <button
             disabled={loading}
             onClick={isLogin ? handleLogin : handleRegister}
-            className={`w-full mt-3 py-2 rounded-lg text-white font-semibold transition duration-200 ${
-              loading
+            className={`w-full mt-3 py-2 rounded-lg text-white font-semibold transition duration-200 ${loading
                 ? "bg-gray-500 cursor-not-allowed"
                 : "bg-gradient-to-r from-orange-500 to-pink-600 hover:opacity-90"
-            }`}
+              }`}
           >
             {loading
               ? "Processing..."
               : isLogin
-              ? "Sign In"
-              : "Sign Up"}
+                ? "Sign In"
+                : "Sign Up"}
           </button>
         </div>
 
