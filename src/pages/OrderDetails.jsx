@@ -17,7 +17,9 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axios.get(`${API_URL}/api/order/details/${id}`);
+        const { data } = await axios.get(`${API_URL}/api/order/details/${id}`, {
+          withCredentials: true
+        })
         setOrder(data);
       } catch (err) {
         console.error('Failed to fetch order', err);

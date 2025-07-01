@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { UseAuthContext } from '../context/AuthProvider';
 import { CgProfile } from "react-icons/cg";
 import { UseProductContext } from '../context/ProductProvider';
+import axios from 'axios';
+import { API_URL } from '../App';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate login condition
-  const { user } = UseAuthContext()
-  const { cart, handleSearchProducts } = UseProductContext()||{}
+  const { user } = UseAuthContext() || {}
+  const { cart, handleSearchProducts } = UseProductContext() || {}
 
   const [keyword, setKeyword] = useState("");
 
@@ -53,6 +55,7 @@ const Navbar = () => {
 
             }
 
+          
             {/* Search */}
             <div className="relative border py-1 border-white-300 rounded-lg overflow-hidden">
               <input
@@ -77,7 +80,7 @@ const Navbar = () => {
                 <svg className=" w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h11L17 13H7z" />
                 </svg>
-                <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white rounded-full px-1">{cart.length}</span>
+                <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white rounded-full px-1">{cart?.length}</span>
               </Link>
             </button>
 

@@ -15,7 +15,7 @@ const CheckoutProvider = ({ children }) => {
 
     // Context providers
     const { totalAmount, cart } = UseProductContext() || {};
-    const { user } = UseAuthContext();
+    const { user } = UseAuthContext() ||{}
 
     // Selected address ID from localStorage
     const [selectedAddressId, setSelectedAddressId] = useState(() => {

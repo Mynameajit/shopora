@@ -9,6 +9,7 @@ const OrderCard = ({ order, onCancel }) => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+console.log(order);
 
 
   console.log(order);

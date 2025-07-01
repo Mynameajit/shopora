@@ -74,7 +74,7 @@ const Products = ({ isHome = false, id }) => {
 
           {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.length === 0 ? (
+            {filteredProducts?.length === 0 ? (
               <div className="col-span-full flex flex-col items-center justify-center text-gray-600 py-10">
                 <MdOutlineSentimentDissatisfied size={60} className="text-red-400 mb-2" />
                 <h2 className="text-xl font-semibold">No Products Found</h2>

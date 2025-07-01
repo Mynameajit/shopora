@@ -5,10 +5,11 @@ import AppLayout from "../layout/AppLayout";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_URL } from "../App";
 
 // Profile Page Component
 const Profile = () => {
-  const { user, handleLogout } = UseAuthContext() || {};
+  const { user, handleLogout,getUser } = UseAuthContext() || {};
 
   // Show loading screen until user is fetched
   if (!user) return <Loader />;
@@ -34,6 +35,7 @@ const Profile = () => {
         }
       );
       toast.success("Address deleted successfully!");
+      getUser()
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to delete address");

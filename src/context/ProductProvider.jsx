@@ -49,7 +49,7 @@ const ProductProvider = ({ children }) => {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [products]);
 
     useEffect(() => {
         setFilteredProducts(products);

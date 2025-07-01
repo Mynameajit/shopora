@@ -5,6 +5,9 @@ import { placeOrder } from "../utils/OrderComfromed.jsx";
 import { UseProductContext } from "../context/ProductProvider";
 import { UseAuthContext } from "../context/AuthProvider";
 import { useCheckoutContext } from "../context/CheckoutProvider ";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 // Main payment page component
@@ -17,6 +20,17 @@ const PaymentMethod = () => {
   const [selectedMethod, setSelectedMethod] = useState(""); // Track selected payment option
   const [showConfirmation, setShowConfirmation] = useState(false); // Toggle order success modal
   const [loading, setLoading] = useState(false); // Button loading state
+
+  const navigate = useNavigate();
+
+
+useEffect(() => {
+  if (cart.length === 0 || !addressId) {
+    toast.error("Please add a product and select address before proceeding.");
+    setTimeout(() => navigate('/'), 500); // 0.5 sec delay
+  }
+}, [cart, addressId]);
+
 
   // Function to place order for COD method
   const handlePlaceOrder = () => {
@@ -55,11 +69,10 @@ const PaymentMethod = () => {
           {/* Cash on Delivery */}
           <div
             onClick={() => setSelectedMethod("cash")}
-            className={`w-full cursor-pointer border rounded-lg p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition ${
-              selectedMethod === "cash"
+            className={`w-full cursor-pointer border rounded-lg p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition ${selectedMethod === "cash"
                 ? "border-green-500 bg-green-50"
                 : "border-gray-200"
-            }`}
+              }`}
           >
             <FaMoneyBillWave className="text-green-600 text-xl" />
             <p className="text-lg font-semibold text-gray-800">
@@ -73,16 +86,15 @@ const PaymentMethod = () => {
               isLoading
                 ? null
                 : () => loadRazorpay({
-                    amount: totalAmount,
-                    method: "online",
-                    user
-                  })
+                  amount: totalAmount,
+                  method: "online",
+                  user
+                })
             }
-            className={`w-full cursor-pointer border rounded-lg p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition ${
-              selectedMethod === "online"
+            className={`w-full cursor-pointer border rounded-lg p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition ${selectedMethod === "online"
                 ? "border-pink-500 bg-pink-50"
                 : "border-gray-200"
-            }`}
+              }`}
           >
             {!isLoading && (
               <FaCreditCard className="text-indigo-600 text-xl" />
@@ -98,13 +110,12 @@ const PaymentMethod = () => {
           <button
             onClick={handlePlaceOrder}
             disabled={!selectedMethod || loading}
-            className={`px-6 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2 transition ${
-              selectedMethod
+            className={`px-6 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2 transition ${selectedMethod
                 ? loading
                   ? "bg-indigo-400 cursor-wait"
                   : "bg-indigo-600 hover:bg-indigo-700"
                 : "bg-gray-400 cursor-not-allowed"
-            }`}
+              }`}
           >
             {loading ? (
               <>

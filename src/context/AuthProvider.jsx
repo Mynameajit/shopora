@@ -23,23 +23,25 @@ const AuthProvider = ({ children }) => {
   const [password, setPassword] = useState("");   // Password
   const [role, setRole] = useState("");           // Role (User/Admin)
 
+
   // 🌍 API base config
   const BASE_URL = `${API_URL}/api`;
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
-  // ✅ User data laane wala function
+
+
   const getUser = async () => {
+
     try {
-      const { data } = await axios.get(`${BASE_URL}/user/me`);
-      if (data.success) {
-        setUser(data.user);
-        setIsAuth(true);
-        localStorage.removeItem("logout");
-      } else {
-        setUser(null);
-        setIsAuth(false);
-      }
-    } catch (error) {
+      setLoading(true);
+      const {data} = await axios.get(`${"http://localhost:8080"}/api/user/me`,{
+        withCredentials:true
+      })
+     
+      setUser(data.user || null);
+      setIsAuth(data.success || false);
+    } catch (err) {
+      console.log("Error is : ", err)
       setUser(null);
       setIsAuth(false);
     } finally {
@@ -48,34 +50,37 @@ const AuthProvider = ({ children }) => {
   };
 
   // 🔄 Auto-login agar cookie present hai
-  useEffect(() => {
-    const loggedOut = localStorage.getItem("logout");
-    if (loggedOut) {
-      setUser(null);
-      setIsAuth(false);
-      setLoading(false);
-    } else {
-      getUser(); // sirf ek baar call
-    }
-  }, [user,isAuth]); // Dependency khali rakhna important hai
+
 
   // 🔐 Login ka handler
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`${BASE_URL}/auth/login`, {
-        email,
-        password,
-        role,
-      });
+      const { data } = await axios.post(
+        `${BASE_URL}/auth/login`,
+        {
+          email,
+          password,
+          role,
+        },
+        {
+          withCredentials: true, // ✅ Add this to send/receive cookie
+        }
+      );
+
+    
 
       if (data.success) {
+        console.log(data)
+        setUser(data.user);
+        setIsAuth(data.success);
         toast.success("Login successful");
-        localStorage.removeItem("logout");
-        await getUser();
+        await getUser(); // ✅ This should also use withCredentials
         setEmail("");
         setPassword("");
         navigate("/");
+     
+
       } else {
         toast.error(data.message || "Login failed");
       }
@@ -86,6 +91,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+
   // 📝 Registration ka handler
   const handleRegister = async () => {
     setLoading(true);
@@ -95,7 +101,10 @@ const AuthProvider = ({ children }) => {
         email,
         password,
         role,
-      });
+      },
+        {
+          withCredentials: true, // ✅ Add this to send/receive cookie
+        });
 
       if (data.success) {
         toast.success("Registration successful");
@@ -161,6 +170,7 @@ const AuthProvider = ({ children }) => {
         handleLogin,
         handleRegister,
         handleLogout,
+        getUser
       }}
     >
       {children}

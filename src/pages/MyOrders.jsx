@@ -6,10 +6,8 @@ import { toast } from "react-hot-toast";
 import { statusColor, trackingStage } from "../utils/orderUtils";
 import { SpinLoader } from "../components/SpinLoader";
 import { API_URL } from "../App";
-
-// Lazy load layout and order card
-const AppLayout = lazy(() => import("../layout/AppLayout"));
-const OrderCard = lazy(() => import("../components/OrderCard"));
+import AppLayout from "../layout/AppLayout";
+import OrderCard from "../components/OrderCard";
 
 const MyOrders = () => {
   const [filter, setFilter] = useState("All");

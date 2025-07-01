@@ -5,9 +5,12 @@ import SelectField from "../components/SelectField"; // 🧩 Custom Select compo
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../App";
+import { UseAuthContext } from "../context/AuthProvider";
 
 const ShippingDetails = () => {
   const navigate = useNavigate(); // 🧭 Navigation hook
+  const { getUser, } = UseAuthContext() ||{}
 
   // 📌 Form state – user address input
   const [form, setForm] = useState({
@@ -30,6 +33,9 @@ const ShippingDetails = () => {
     setStates(State.getStatesOfCountry("IN"));
   }, []);
 
+
+
+
   // 🔁 Whenever state changes, load its cities
   useEffect(() => {
     if (form.state) {
@@ -43,6 +49,7 @@ const ShippingDetails = () => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
+
 
   // 📤 Submit the address form
   const handleSubmit = async (e) => {
@@ -62,7 +69,7 @@ const ShippingDetails = () => {
 
       toast.success("Address created successfully!");
       setLoading(false)
-
+      getUser()
       // 🎯 Reset form after submission
       setForm({
         fullName: "",

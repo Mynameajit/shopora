@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Loader from "../Loader";
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuth, loading } = UseAuthContext();
+    const { isAuth, loading, user } = UseAuthContext();
     const location = useLocation();
 
     if (loading) {

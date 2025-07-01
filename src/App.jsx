@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/Router/ProtectedRoute';
 import Loader from './components/Loader.jsx';
+import AuthProvider, { UseAuthContext } from './context/AuthProvider.jsx';
+import { useEffect } from 'react';
 
 // Lazy-loaded Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -19,6 +21,11 @@ const MyOrders = lazy(() => import('./pages/MyOrders'));
 const OrderDetails = lazy(() => import('./pages/OrderDetails'));
 
 const App = () => {
+  const { getUser, } = UseAuthContext() ||{}
+
+  useEffect(() => {
+    getUser()
+  }, []);
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
@@ -92,6 +99,7 @@ const App = () => {
   );
 };
 
-export const API_URL="https://shopora-backend-1g44.onrender.com"
+// export const API_URL="https://shopora-backend-1g44.onrender.com"
+export const API_URL = "http://localhost:8080"
 
 export default App;

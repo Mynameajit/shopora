@@ -1,53 +1,58 @@
 import React from 'react';
 
-const Footer = ({ footer=true }) => {
- 
-  
+const Footer = ({ footer = true }) => {
   return (
-    <footer style={{ display: footer ? "block" : "none" }} className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <footer
+      style={{ display: footer ? 'block' : 'none' }}
+      className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-10 mt-20"
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand Info */}
           <div>
-            <h3 className="text-xl font-bold mb-2">ShopEase</h3>
-            <p className="text-sm">Your one-stop shop for everything trendy and affordable.</p>
+            <h3 className="text-2xl font-extrabold mb-3 tracking-tight">Shopora</h3>
+            <p className="text-sm leading-relaxed">
+              Your one-stop shop for everything trendy, affordable, and delivered to your door.
+            </p>
+            <p className="mt-3 text-xs text-white/80">📧 project154321@gmail.com</p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="font-semibold mb-2">Quick Links</h4>
-            <ul className="space-y-1 text-sm">
-              <li><a href="#" className="hover:underline">Home</a></li>
-              <li><a href="#" className="hover:underline">Shop</a></li>
-              <li><a href="#" className="hover:underline">Deals</a></li>
-              <li><a href="#" className="hover:underline">Contact</a></li>
+            <h4 className="font-semibold mb-3 text-lg">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline hover:text-white/90">Home</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Shop</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Deals</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Contact</a></li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h4 className="font-semibold mb-2">Support</h4>
-            <ul className="space-y-1 text-sm">
-              <li><a href="#" className="hover:underline">FAQs</a></li>
-              <li><a href="#" className="hover:underline">Shipping & Returns</a></li>
-              <li><a href="#" className="hover:underline">Privacy Policy</a></li>
-              <li><a href="#" className="hover:underline">Terms of Service</a></li>
+            <h4 className="font-semibold mb-3 text-lg">Support</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline hover:text-white/90">FAQs</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Shipping & Returns</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Privacy Policy</a></li>
+              <li><a href="#" className="hover:underline hover:text-white/90">Terms of Service</a></li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div>
-            <h4 className="font-semibold mb-2">Subscribe</h4>
-            <form className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <h4 className="font-semibold mb-3 text-lg">Stay Updated</h4>
+            <p className="text-sm mb-2">Subscribe to our newsletter</p>
+            <form className="flex flex-col sm:flex-row items-center gap-2 mt-2">
               <input
                 type="email"
-                placeholder="example@gmail.com"
-                className="px-3 py-2 rounded-md text-gray focus:outline-none"
+                placeholder="your email"
+                className="w-full px-3 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-white"
               />
               <button
                 type="submit"
-                className="bg-white text-indigo-600 font-semibold px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
+                className="bg-white text-purple-700 font-semibold px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
               >
                 Subscribe
               </button>
@@ -55,9 +60,10 @@ const Footer = ({ footer=true }) => {
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="mt-8 text-center text-sm border-t border-white/30 pt-4">
-          &copy; {new Date().getFullYear()} Shopora. All rights reserved.
+        {/* Divider */}
+        <div className="mt-10 border-t border-white/20 pt-4 text-center text-xs text-white/80">
+          &copy; {new Date().getFullYear()} <strong>Shopora</strong>. All rights reserved. |
+          Built with 💖 by <a href="mailto:project154321@gmail.com" className="underline ml-1 hover:text-white">project154321@gmail.com</a>
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import toast from "react-hot-toast";
+import { API_URL } from '../App';
 
 export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmount, setLoading }) => {
 
@@ -11,7 +12,7 @@ export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmo
             quantity: item.quantity,
         }));
 
-        const response = await axios.post(
+        const { data } = await axios.post(
             `${API_URL}/api/order/create`,
             {
                 address: addressId,
@@ -27,10 +28,12 @@ export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmo
                 }
             }
         );
+        if (data.success) {
+            toast.success("🛒 Order placed successfully!");
+            localStorage.removeItem("cart");
+            localStorage.removeItem("selectedAddressId");
+        }
 
-        toast.success("🛒 Order placed successfully!");
-        localStorage.removeItem("cart");
-        
 
         setTimeout(() => {
             window.location.href = "/my-order";
@@ -41,8 +44,8 @@ export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmo
     } catch (error) {
         console.error("Order error:", error);
         toast.error("❌ Failed to place order.");
-        throw error;
         setLoading(false)
+        throw error;
 
     }
 };

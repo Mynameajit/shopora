@@ -29,6 +29,13 @@ const OrderSummary = () => {
   } = useCheckoutContext();
 
   useEffect(() => {
+    if (cart.length === 0) {
+      toast.error("Please add a product to cart.");
+      setTimeout(() => navigate('/'), 500); // toast display hone ka time
+    }
+  }, [cart]);
+
+  useEffect(() => {
     if (selectedAddressId) {
       localStorage.setItem("selectedAddressId", selectedAddressId);
     }
@@ -51,6 +58,7 @@ const OrderSummary = () => {
       );
     }
   };
+
 
   const onProceedPayment = () => {
     if (!selectedAddressId) {
