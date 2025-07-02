@@ -21,11 +21,12 @@ const MyOrders = lazy(() => import('./pages/MyOrders'));
 const OrderDetails = lazy(() => import('./pages/OrderDetails'));
 
 const App = () => {
-  const { getUser, } = UseAuthContext() ||{}
+  const { getUser, } = UseAuthContext() || {}
 
   useEffect(() => {
     getUser()
   }, []);
+  
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
@@ -99,7 +100,7 @@ const App = () => {
   );
 };
 
-export const API_URL="https://shopora-backend-1g44.onrender.com"
+export const API_URL = "https://shopora-backend-1g44.onrender.com"
 // export const API_URL = "http://localhost:8080"
 
 export default App;

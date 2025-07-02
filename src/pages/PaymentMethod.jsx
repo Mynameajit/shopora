@@ -46,7 +46,8 @@ useEffect(() => {
         totalAmount,
         cartItems: cart,
         setLoading,
-        setShowConfirmation
+        setShowConfirmation,
+        navigate
       });
     }
   };

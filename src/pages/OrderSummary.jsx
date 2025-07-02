@@ -7,6 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useCheckoutContext } from "../context/CheckoutProvider ";
+import { API_URL } from "../App";
 
 const EditAddressModal = lazy(() => import("../dialog/EditAddressModal"));
 
@@ -41,9 +42,12 @@ const OrderSummary = () => {
     }
   }, [selectedAddressId]);
 
+
+  // address update function
   const handleUpdateAddress = async () => {
     try {
-      await axios.put(`/api/address/update`, formData, {
+      
+      await axios.put(`${API_URL}/api/address/update`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

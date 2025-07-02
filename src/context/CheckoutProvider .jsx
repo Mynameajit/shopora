@@ -87,10 +87,10 @@ const CheckoutProvider = ({ children }) => {
                             addressId: selectedAddressId,
                             totalAmount,
                             cartItems: cart,
-                            setLoading
+                            setLoading,
+                            navigate: Navigate,
                         });
 
-                        Navigate('/my-order');
                     } else {
                         toast.error("Payment Failed Verification!");
                     }

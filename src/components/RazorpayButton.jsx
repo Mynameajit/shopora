@@ -5,7 +5,6 @@ import { API_URL } from '../App';
 const RazorpayButton = ({ amount = 500 }) => {
 
   const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID
-  console.log(RAZORPAY_KEY_ID);
 
 
   const loadRazorpay = async () => {
@@ -16,7 +15,7 @@ const RazorpayButton = ({ amount = 500 }) => {
         key: RAZORPAY_KEY_ID,
         amount: data.amount,
         currency: "INR",
-        name: "Dev Ajit Ecommers",
+        name: "Shopora Store",
         description: "Test Transaction",
         order_id: data.id,
         handler: async function (response) {

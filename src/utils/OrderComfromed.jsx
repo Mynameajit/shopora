@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from "react-hot-toast";
 import { API_URL } from '../App';
 
-export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmount, setLoading }) => {
+export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmount, setLoading,navigate }) => {
 
     try {
         setLoading(true)
@@ -32,14 +32,9 @@ export const placeOrder = async ({ paymentMethod, cartItems, addressId, totalAmo
             toast.success("🛒 Order placed successfully!");
             localStorage.removeItem("cart");
             localStorage.removeItem("selectedAddressId");
+            navigate('/my-order')
         }
 
-
-        setTimeout(() => {
-            window.location.href = "/my-order";
-            setLoading(false)
-
-        }, 500);
 
     } catch (error) {
         console.error("Order error:", error);
